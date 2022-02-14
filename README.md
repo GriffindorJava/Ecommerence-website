@@ -1,6 +1,6 @@
 <div align="center">
 
-# E-commerceFullstack
+# E-commerce website
 
 Project was created for Database University Course, which indicates the use of native SQL queries throughout the entire project. 
 
