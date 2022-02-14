@@ -1,0 +1,723 @@
+{
+	"info": {
+		"_postman_id": "25fcc72d-671c-4daf-a5f7-846d10fdf8b2",
+		"name": "ecommerce_website",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/auth/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"peter@gmail.com\",\r\n    \"password\" : \"123456\",\r\n    \"first_name\" : \"Peter\",\r\n    \"last_name\" : \"Parker\",\r\n    \"phone_number\" : \"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/auth/signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"mark@gmail.com\",\r\n    \"password\" : \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/changePassword",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDI2OTE2OCwiZXhwIjoxNjQ0MjcyNzY4fQ.tfZpO1VXi7sRIQr7uKYrZRcZ7l8dlOsWkyX3Bm-HHechICebAxahQXRh5NaLd_5OPNNX-CxMwKo-oVW11Pttvg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\" : \"sss\",\r\n    \"oldPassword\" : \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/changePassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"changePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0MTc1MTY2MCwiZXhwIjoxNjQxODM4MDYwfQ.qTXbYEDvITHbD7dowN9GnbDV1j7aaY5-bu9Mio1Yw9q4zlDfWhzBeiNl7V8_YIPvR2XcE_-VIRyIDqzYMuLI8w",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/opinions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/test/opinions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"opinions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/test/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/myaccount",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDI0MjE4MywiZXhwIjoxNjQ0MjQ1NzgzfQ.MlBkfIwjZj-7UEEQq0vKfwPgCXy_ubENIUNkL7GkWOngtQOdfDfvwyO-JlvxqHduK7OzsxjQp_-ftRqy7UUIyg",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test/myaccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"myaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/product/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDUzMDU2NSwiZXhwIjoxNjQ0NTM0MTY1fQ.nnSUBBxtkNAonHss2o0_853j0aNvcp84U0198kp57zmZKeZFF6l13iAJQC4fnwUAdQqGvzUm8WN4kiJgSV6Hhw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test/product/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"product",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/search/amarena",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/test/search/amarena",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"search",
+						"amarena"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/test/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\" : \"0\",\r\n    \"size\" : \"10\",\r\n    \"fieldToSortBy\" : \"name\",\r\n    \"sortDirection\" : \"ASC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/purchase",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDU0MDQ0MSwiZXhwIjoxNjQ0NTQ0MDQxfQ.oq33DgrGs7Z3QjcwHJmuwpPBn3VbFH1Y30BeETdGiJn-DnzZCvtMvgPKAgPc4zSulGeyTF5W5IYUqBFjac_8UA",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"payment_method_id\" : \"1\",\r\n    \"shipping_method_id\" : \"1\",\r\n    \"city\" : \"Warsaw\",\r\n    \"postal_code\" : \"54321\",\r\n    \"street\" : \"Rzeszowska\",\r\n    \"country\" : \"Poland\",\r\n    \"street_number\" : \"30\",\r\n    \"orderedProducts\" : [\r\n        {\r\n            \"product_id\" : \"6\",\r\n            \"quantity\" : \"2\"\r\n        },\r\n        {\r\n            \"product_id\" : \"4\",\r\n            \"quantity\" : \"2\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/add-address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDQ1MzY3NSwiZXhwIjoxNjQ0NDU3Mjc1fQ.LgwNzeHrXkdT26HoeeiWSjXrNoTsCOuP5ufyJChSTpvz0ki7jvOKkNB6dSY2LY3FF5Hin0L2yclpAaYLBqAxtg",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"city\" : \"Sopot\",\r\n    \"postal_code\" : \"54321\",\r\n    \"street\" : \"Grunwaldzka\",\r\n    \"country\" : \"Poland\",\r\n    \"street_number\" : 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/add-address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"add-address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/add-opinion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDU0MDQ0MSwiZXhwIjoxNjQ0NTQ0MDQxfQ.oq33DgrGs7Z3QjcwHJmuwpPBn3VbFH1Y30BeETdGiJn-DnzZCvtMvgPKAgPc4zSulGeyTF5W5IYUqBFjac_8UA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\" : \"good\",\r\n    \"product_id\" : \"4\",\r\n    \"rating\" : \"6.7\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/add-opinion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"add-opinion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/upToDateProductsInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderedProducts\" : [\r\n        {\r\n            \"product_id\" : \"2\",\r\n            \"quantity\" : \"2\"\r\n        },\r\n        {\r\n            \"product_id\" : \"3\",\r\n            \"quantity\" : \"2\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/upToDateProductsInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"upToDateProductsInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/filteredProducts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categories\" : [1,2,3,4,5,6,7,8],\r\n    \"minPrice\" : null,\r\n    \"maxPrice\" : null,\r\n    \"page\" : \"0\",\r\n    \"size\" : \"10\",\r\n    \"fieldToSortBy\" : \"\",\r\n    \"sortDirection\" : \"DESC\",\r\n    \"searchValue\" : \"AMAr\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/filteredProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"filteredProducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/myorders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDUxMjEzMywiZXhwIjoxNjQ0NTE1NzMzfQ.Goop_8BRtOeioB3mjz7TB9JydVRD5EaMvyXF1atUJolU1eIDgcafAx3x3YAqzl40d_JJbP59XiRc3pmbu1_gVw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test/myorders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"myorders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/addresses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDI0MjE4MywiZXhwIjoxNjQ0MjQ1NzgzfQ.MlBkfIwjZj-7UEEQq0vKfwPgCXy_ubENIUNkL7GkWOngtQOdfDfvwyO-JlvxqHduK7OzsxjQp_-ftRqy7UUIyg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test/addresses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/productsQuantity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/test/productsQuantity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"productsQuantity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/changeOrderStatus",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDM0MDMzMCwiZXhwIjoxNjQ0MzQzOTMwfQ.kbAsNm1unR3Fgiu03DIPhowFW9vI7wsqqLHW3Ot8bg4Z00KiSFSjGdHfcIXQJ7p4fpXIpoY9wmf1RfNKLSVIIA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\" : \"ordered\",\r\n    \"orderTrackingNumber\" : \"4bb2542f-7863-11ec-80be-02502343be3a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/changeOrderStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"changeOrderStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/deleteProduct/10",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDM0MTc2NCwiZXhwIjoxNjQ0MzQ1MzY0fQ.TDkgnSEmz5MipG78w9RoC94oz1OiF0aH14cQnxa8pxhpT7s6GfJ8BXidsCQm50S5rziHFJDbL3AR-uxhqxuAjg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/admin/deleteProduct/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"deleteProduct",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/addProduct",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDM1ODcxMywiZXhwIjoxNjQ0MzYyMzEzfQ.FHlblcsQs9muqIGDuJRKv1zjfhXb1KXpbfABJG5CBgaHTUs9yFxIrKt37OgI0vzzgUlIeg-5MT_Ul29wjQ9QIA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Primitivo5\",\r\n    \"description\" : \"Amazing Wine!\",\r\n    \"unitPrice\" : 64,\r\n    \"unitsInStock\" : 12,\r\n    \"category\" : 1,\r\n    \"active\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/addProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"addProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/admin/statistics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDM2MzU5NiwiZXhwIjoxNjQ0MzY3MTk2fQ.j8jU7nYKxaC4Hzssn0ciTwoSx2de7g04MFvfnal3HIVX3LrN2nOTch8D6MwCEUE85xibXSjqkyC9uNUK55PuDg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/admin/statistics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"statistics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/delete-address/3",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDQ1NjIzMiwiZXhwIjoxNjQ0NDU5ODMyfQ.8W1JxiqwQIKjL3oyiKPc2ObzWrtagAH4Fs9ueAl4ebSHP5bdngkZEJ8Kyfjrwj3mqRUAafcyMQ4Rzc2tRDh69A",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test/delete-address/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"delete-address",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/test/update-address",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJrQGdtYWlsLmNvbSIsImlhdCI6MTY0NDQ1NTYyOSwiZXhwIjoxNjQ0NDU5MjI5fQ.gghTeeCBi_RKiBeeZTtqGgC7qGfsVTlBZ4JfJKzxGw7HwaUpOWvl4N0RCDrjdSmeYI3buaIdf-pfDnVPr-NcRA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 1,\r\n    \"city\" : \"Cracow\",\r\n    \"postal_code\" : \"54321\",\r\n    \"street\" : \"Kijowska\",\r\n    \"country\" : \"Poland\",\r\n    \"street_number\" : 53\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/test/update-address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test",
+						"update-address"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

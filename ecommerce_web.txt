@@ -1,0 +1,173 @@
+use ecommerce_web;
+
+CREATE TABLE `product` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) DEFAULT NULL,
+	`description` varchar(255) DEFAULT NULL,
+	`unit_price` DECIMAL(6,2) DEFAULT NULL,
+	`image_path` varchar(255) DEFAULT NULL,
+	`units_in_stock` int DEFAULT NULL,
+	`category_id` int NOT NULL,
+	`active` BOOLEAN DEFAULT 1,
+	`average_rating` DECIMAL(2,1) DEFAULT NULL,
+	`date_created` DATETIME DEFAULT NULL,
+	`last_updated` DATETIME DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `users` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`first_name` varchar(64) DEFAULT NULL,
+	`last_name` varchar(64) DEFAULT NULL,
+	`email` varchar(255) DEFAULT NULL,
+	`password` varchar(255) DEFAULT NULL,
+	`phone_number` varchar(9) DEFAULT NULL,
+	`created` DATETIME DEFAULT NULL,
+	`modified` DATETIME DEFAULT NULL,
+	`user_role_id` int DEFAULT 1,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `categories` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `orders` (
+	`order_tracking_number` varchar(255) NOT NULL UNIQUE,
+	`user_id` int NOT NULL,
+	`status` varchar(64) DEFAULT NULL,
+	`payment_method_id` int NOT NULL,
+	`shipping_method_id` int NOT NULL,
+	`city` varchar(64) NOT NULL,
+	`postal_code` char(5) NOT NULL,
+	`street` varchar(32) NOT NULL,
+	`country` varchar(32) NOT NULL,
+	`street_number` int NOT NULL,
+	`date` DATETIME DEFAULT NULL,
+	PRIMARY KEY (`order_tracking_number`)
+);
+
+CREATE TABLE `ordered_products` (
+	`order_tracking_number` varchar(255) NOT NULL,
+	`product_id` int NOT NULL,
+	`quantity` int NOT NULL
+);
+
+CREATE TABLE `user_address` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`city` varchar(64) NOT NULL,
+	`postal_code` char(5) NOT NULL,
+	`street` varchar(32) NOT NULL,
+	`country` varchar(32) NOT NULL,
+	`street_number` int NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `opinions` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`description` varchar(255) DEFAULT NULL,
+	`product_id` int NOT NULL,
+	`user_id` int NOT NULL,
+	`rating` DECIMAL(2,1) DEFAULT NULL,
+	`date` DATETIME DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `user_role` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`name` varchar(32) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `product` ADD CONSTRAINT `product_fk0` FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`);
+
+ALTER TABLE `users` ADD CONSTRAINT `users_fk0` FOREIGN KEY (`user_role_id`) REFERENCES `user_role`(`id`);
+
+ALTER TABLE `orders` ADD CONSTRAINT `orders_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
+ALTER TABLE `ordered_products` ADD CONSTRAINT `ordered_products_fk0` FOREIGN KEY (`order_tracking_number`) REFERENCES `orders`(`order_tracking_number`);
+
+ALTER TABLE `ordered_products` ADD CONSTRAINT `ordered_products_fk1` FOREIGN KEY (`product_id`) REFERENCES `product`(`id`);
+
+ALTER TABLE `user_address` ADD CONSTRAINT `user_address_fk0` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
+ALTER TABLE `opinions` ADD CONSTRAINT `opinions_fk0` FOREIGN KEY (`product_id`) REFERENCES `product`(`id`);
+
+ALTER TABLE `opinions` ADD CONSTRAINT `opinions_fk1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
+ALTER TABLE product ADD FULLTEXT(name, description);
+
+CREATE TRIGGER avgRating
+AFTER INSERT ON opinions FOR EACH ROW
+    UPDATE product
+    SET average_rating = (SELECT AVG(rating) FROM opinions WHERE opinions.product_id = NEW.product_id)
+    WHERE id = NEW.product_id;
+
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (1, 'Amarena', 'Amazing drink!', 10, 100, 1, '/assets/amarena.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (2, 'Stock', 'Amazing vodka!', 25, 100, 2, '/assets/stock.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (3, 'Jack Daniels', 'Amazing whisky!', 50, 100, 3, '/assets/jack_daniels.jfif');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (4, 'Corona', 'Amazing beer!', 7, 100, 4, '/assets/corona.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (5, 'Blue Curacao', 'Amazing liqueur!', 15, 100, 5, '/assets/blue_curacao.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (6, 'Tanqueray London Dry', 'Amazing gin!', 43, 100, 6, '/assets/tanqueray_london_dry.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (7, 'Diplomatico Reserva Exclusiva', 'Amazing rum!', 56, 100, 7, '/assets/diplomatico_reserva_exclisuva.jfif');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (8, 'Patron Silver', 'Amazing tequila!', 54, 100, 8, '/assets/patron_silver.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (9, "Ballantine's Whisky", 'Amazing whisky!', 99, 100, 3, '/assets/ballantise.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (10, 'Desperados Mojito', 'Amazing beer!', 5, 100, 4, '/assets/desperados_mojito.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (11, 'Żubr', 'Amazing beer!', 4, 100, 4, '/assets/zubr.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (12, 'Lech Premium', 'Amazing beer!', 3, 100, 4, '/assets/lech_premium.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (13, 'Heineken', 'Amazing beer!', 4, 100, 4, '/assets/heineken.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (14, 'Skol', 'Amazing beer!', 3, 100, 4, '/assets/skol.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (15, 'Bud Light', 'Amazing beer!', 4, 100, 4, '/assets/bud_light.jpeg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (16, 'Budweiser Budvar', 'Amazing beer!', 3, 100, 4, '/assets/budweiser_budvar.jfif');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (17, 'Somersby Apple', 'Amazing beer!', 4, 100, 4, '/assets/somersby_apple.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (18, 'Żywiec', 'Amazing beer!', 3, 100, 4, '/assets/zywiec.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (19, 'Warka Strong', 'Amazing beer!', 4, 100, 4, '/assets/warka_strong.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (20, 'Finlandia', 'Amazing vodka!', 39.4, 100, 2, '/assets/finlandia.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (21, "Grant's", 'Amazing whisky!', 55, 100, 3, '/assets/grants.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (22, 'Wyborowa', 'Amazing vodka!', 38, 100, 2, '/assets/wyborowa.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (23, 'Żubrówka Bison Grass', 'Amazing vodka!', 43, 100, 2, '/assets/zubrowka_bison.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (24, 'Carlo Rossi', 'Amazing wine!', 24, 100, 1, '/assets/carlo_rossi.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (25, 'Taittinger Brut Réserve', 'Amazing wine!', 259, 100, 1, '/assets/taittinger_brut_reserve.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (26, 'Landgraf Hessen Riesling', 'Amazing wine!', 73, 100, 1, '/assets/landgraf_hessen_riesling.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (27, 'Monfort Village', 'Amazing wine!', 32, 100, 1, '/assets/monfort_carignan.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (28, 'Dalkowski Advocaat', 'Amazing liqueur!', 33, 100, 5, '/assets/dalkowski_advocaat.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (29, 'Jagemeister', "Amazing, simply amazing, Go with RedBull!!! 40% and Liqueur? XDDD", 69, 100, 6, '/assets/jagemeister.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (30, 'Canari Kokos', 'Amazing liqueur!', 23, 100, 5, '/assets/canari_kokos.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (31, "Malibu Caribbean", 'Amazing rum!', 55, 100, 7, '/assets/malibu_caribbean.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (32, 'Sheridans', 'Amazing liqueur!', 44, 100, 5, '/assets/sheridans.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (33, 'Treasure By Dictador', 'Amazing gin!', 183, 100, 6, '/assets/treausure_by_dictador.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (34, 'Beefeater Pink', 'Amazing gin!', 74, 100, 6, '/assets/beefeater_pink.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (35, 'Chivas Regal', 'Amazing whisky!', 259, 100, 3, '/assets/chivas_regal.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (36, 'Royal Salute', 'Amazing whisky!', 737, 100, 3, '/assets/royal_salute.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (37, 'Shackleton', 'Amazing whisky!', 86, 100, 3, '/assets/shackleton.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (38, 'Salitos Gold', 'Amazing tequila!', 113, 100, 8, '/assets/salitos_gold.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (39, 'Salitos Silver', "Amazing tequila!", 99, 100, 8, '/assets/salitos_silver.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (40, 'Olmeca Altos Reposado Gold', 'Amazing tequila!', 153, 100, 8, '/assets/olmeca_altos_reposado_gold.jpg');
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id, image_path) VALUES (41, 'Komandos', 'Amazing, really amazing drink, or so I heard.', 9.99, 100, 1, '/assets/komandos.jfif');
+
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (1, 'Amarena', 'Amazing drink!', 10, 34, 1);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (2, 'Stock', 'Amazing vodka!', 25, 56, 2);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (3, 'Jack Daniels', 'Amazing whisky!', 50, 24, 3);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (4, 'Corona', 'Amazing beer!', 7, 112, 4);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (5, 'Blue Curacao', 'Amazing liqueur!', 15, 16, 5);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (6, 'Tanqueray London Dry', 'Amazing gin!', 43, 68, 6);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (7, 'Diplomatico Reserva Exclusiva', 'Amazing rum!', 56, 45, 7);
+INSERT INTO product (id, name, description, unit_price, units_in_stock, category_id) VALUES (8, 'Patron Silver', 'Amazing tequila!', 54, 19, 8);
+
+INSERT INTO user_role (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO user_role (id, name) VALUES (2, 'ROLE_MODERATOR');
+INSERT INTO user_role (id, name) VALUES (3, 'ROLE_ADMIN');
+
+INSERT INTO users (id, email, password, user_role_id) VALUES (1, 'mark@gmail.com', '$2a$10$4zr2XuTWbMqE9FQ6YWVf9OuP2/lSSh3iDcfo43uDL49OJJhiBJZta', 3);
+INSERT INTO users (id, email, password, user_role_id) VALUES (2, 'hank@gmail.com', '$2a$10$4zr2XuTWbMqE9FQ6YWVf9OuP2/lSSh3iDcfo43uDL49OJJhiBJZta', 2);
+INSERT INTO users (id, email, password, user_role_id) VALUES (3, 'robert@gmail.com', '$2a$10$4zr2XuTWbMqE9FQ6YWVf9OuP2/lSSh3iDcfo43uDL49OJJhiBJZta', 1);
+
+INSERT INTO user_address (user_id, city, postal_code, street, country, street_number) VALUES (1, 'Cracow', '12345', 'Kijowska', 'Poland', 35);
+
+INSERT INTO orders (order_tracking_number, user_id, status, payment_method_id, shipping_method_id, city, postal_code, street, country, street_number) VALUES ('9944f209-58a1-4bb1-a7ad-5d5f1a146ff7', 1, 'ordered', 1, 1, 'Cracow', '12345', 'Kijowska', 'Poland', 35);
+
+INSERT INTO ordered_products (order_tracking_number, product_id, quantity) VALUES ('9944f209-58a1-4bb1-a7ad-5d5f1a146ff7', 1, 4);
+
